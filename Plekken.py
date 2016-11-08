@@ -1,12 +1,17 @@
-import csv
-nietbeschikbaar = 0
-file = open('fietsen.csv', 'r', newline='')
-tekst = csv.reader(file)
-for regel in tekst:
-    nietbeschikbaar = nietbeschikbaar + 1
-beschikbaar = 12 - nietbeschikbaar
+import sqlite3
+def plekken():    #aantal vrije kluizen
+    con = sqlite3.connect('persoonsgegevens.db')                       #maakt verbinding met sqlite3 en de database
+    cur = con.cursor()
+    cur.execute('SELECT * FROM KEYWORDS')                               #selecteert alle informatie uit de database
+    x = cur.fetchall()                                                  #koppelt de lijst uit de database aan x
+    nietbeschikbaar = len(x)
+    plaatsen = 12                                                       #verander dit nummer om het aantal plekken te veranderen
+    beschikbaar = plaatsen - nietbeschikbaar
 
-if beschikbaar > 0:
-    print('er zijn '+ str(beschikbaar)+ 'plekken beschikbaar')
-else:
-    print('er zijn geen plekken meer vrij')
+    return(int(beschikbaar))
+if plekken()>1:
+    print('er zijn nog',plekken(),'plaatsen beschikbaar')
+elif plekken()== 0:
+    print('er zijn geen plaatsen beschikbaar')
+elif plekken() == 1:
+    print('er is nog 1 plaats beschikbaar')

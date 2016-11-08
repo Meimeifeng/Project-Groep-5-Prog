@@ -1,6 +1,6 @@
 import os
 while True:
-    print('\n1: Je fiets voor de eerste keer registreren\n2: Je fiets stallen\n3: Je fiets ophalen\n4: Informatie van je fiets ophalen\n5: Antal vrije plaatsen\n6: Ik wil stoppen')
+    print('\n1: Je fiets voor de eerste keer registreren\n2: Je fiets stallen\n3: Je fiets ophalen\n4: Informatie van je fiets of van de stalling\n5: Antal vrije plaatsen\n6: Ik wil stoppen')
     try:
         nummer = int(input('geef het nummer van uw keuze '))
     except:
