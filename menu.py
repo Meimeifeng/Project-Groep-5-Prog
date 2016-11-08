@@ -3,10 +3,12 @@ import random
 from collections import defaultdict
 #fietsen.csv moet worden fietsnr:code
 #plekken.csv moet worden plek:fietsnr
-#fiets registreren geeft je fietsnr + code
-#fiets stallen doet in plekken.csv plek:fietsnr
-#fiets ophalen verwijderd plek:fietsn
-
+#fiets registreren je moet invullen voornaam, achternaam, telefoonnr, geboorte datum, adres je krijgt terug fietsnr + code
+#fiets stallen doet in plekken.csv plek:fietsnr  opslaan: tijd/datum fietsnummer plek
+#fiets ophalen verwijderd plek:fietsn  opvragen: kijken naar tijd verschil en als dit langer is dan bijv. 24 uur dan moet je 0.5 euro betalen per uur
+                                                #kijken of de fiets bij de persoon hoort door fietsnr te chekken met de code
+                                                #de plek verwijderd worden uit plekken.csv
+                                                #aan de persoon koppenlen hoelang de fiets in totaal is geparkeert en hoeveel kosten hij/zij in totaal heeft gehad
 
 columns = defaultdict(list)
 text = open('fietsen.csv')
