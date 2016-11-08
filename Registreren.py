@@ -6,7 +6,7 @@ import csv
 import random
 from collections import defaultdict
 import os
-
+#3
 columns = defaultdict(list)
 text = open('fietsen.csv')
 tekst = csv.reader(text, delimiter=';')
