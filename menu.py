@@ -1,6 +1,11 @@
 import csv
 import random
 from collections import defaultdict
+#fietsen.csv moet worden fietsnr:code
+#plekken.csv moet worden plek:fietsnr
+#fiets registreren geeft je fietsnr + code
+#fiets stallen doet in plekken.csv plek:fietsnr
+#fiets ophalen verwijderd plek:fietsn
 
 columns = defaultdict(list)
 text = open('fietsen.csv')
@@ -22,48 +27,50 @@ def www():
     return(ww)
 
 
-def Registreren():
+def Registreren():              # je krijgt een plek en een code. op die plek zet je je fiets neer en de code onthoud je voor als je fiets komt ophalen ook krijgt je fiets een nummer deze heb je met je code nodig om je fiets te halen
     text = open('fietsen.csv')
     tekst = csv.reader(text,delimiter=';')
     for regel in tekst:
         for (a, b) in enumerate(regel):
             columns[a].append(b)
-    if int(d()) > 0:
+    if int(Plekken()) > 0:
         for x in range(1,13):
-            kluizenbezet = columns[0]
-            if str(x) not in kluizenbezet:
+            plekkenbezet = columns[0]
+            if str(x) not in plekkenbezet:
                 openkluis = x
                 ww = www()
                 text1 = open('fietsen.csv', 'a', newline='')
                 tekst1 = csv.writer(text1, delimiter=';')
                 tekst1.writerow((openkluis, ww))
-                print('jouw kluisje is nummer '+ str(openkluis) + ' en de code voor de kluis is ' + str(ww))
+                print('jouw plek is nummer '+ str(openkluis) + ' en de code voor het ophalen is: ' + str(ww))
                 break
     else:
-        print('er zijn geen kluisjes meer beschikbaar')
+        print('er zijn geen plekken meer beschikbaar')
 
-def Stallen():    #kluis openen
+def Ophalen():    #kluis openen
     text = open('fietsen.csv')
     tekst = csv.reader(text, delimiter=';')
     for regel in tekst:
         for (a, b) in enumerate(regel):
             columns[a].append(b)
     codes = columns[1]
-    kluisnummers = columns[0]
+    plek = columns[0]
     x = True
     while x == True:
+
         wachtwoord = input('wat is je code')
+
         if wachtwoord in codes:
             for i in codes:
                 if i == wachtwoord:
 
-                    print('je kluisnummer is '+ str(kluisnummers[codes.index(i)]) + 'wordt geopend')
+                    print('je kluisnummer is '+ str(plek[codes.index(i)]) + 'wordt geopend')
                     x = False
                     break
         else:
             print('dit is geen goede code')
 
-def Ophalen():    #ik ben klaar met mijn kluis
+def Stallen():
     print('deze optie werkt nog niet')
 
 def Plekken():    #aantal vrije kluizen
@@ -75,7 +82,7 @@ def Plekken():    #aantal vrije kluizen
     beschikbaar = 12 - nietbeschikbaar
     return(int(beschikbaar))
 def Info():
-    print('er zijn ' + str(plekken()) + ' kluisjes vrij')
+    print('er zijn ' + str(Plekken()) + ' kluisjes vrij')
 
 while True:
     print('\n1: Je fiets voor de eerste keer registreren\n2: Je fiets stallen\n3: Je fiets ophalen\n4: Informatie van je fiets ophalen\n5: Antal vrije plaatsen\n6: Ik wil stoppen')
