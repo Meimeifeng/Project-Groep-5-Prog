@@ -7,6 +7,7 @@ from collections import defaultdict
 #fiets stallen doet in plekken.csv plek:fietsnr
 #fiets ophalen verwijderd plek:fietsn
 
+
 columns = defaultdict(list)
 text = open('fietsen.csv')
 tekst = csv.reader(text, delimiter=';')
