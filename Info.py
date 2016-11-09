@@ -1,15 +1,29 @@
-import csv
-def Plekken():    #aantal vrije kluizen
-    nietbeschikbaar = 0
-    file = open('fietsen.csv', 'r', newline='')
-    tekst = csv.reader(file)
-    for regel in tekst:
-        nietbeschikbaar = nietbeschikbaar + 1
-    beschikbaar = 12 - nietbeschikbaar
+import os
+from tkinter import *
+import sys
 
-    if beschikbaar > 0:
-        print('er zijn '+ str(beschikbaar)+ ' plekken beschikbaar')
-    else:
-        print('er zijn geen plekken meer vrij')
+root = Tk()
 
-Plekken()
+def plekken():
+    os.system('plekken.py')
+
+def close():
+    sys.exit()
+
+while True:
+    label = Label(master=root,
+            text='Informatie opvragen',
+            background='yellow',
+            foreground='blue',
+            font=('Helvetica', 20, 'bold'),
+            anchor=N,
+            width=35,
+            height=11,)
+    label.pack()
+
+    button1 = Button(master=root, text='Beschikbare plekken', font=('Helvetica', 16, 'bold'), borderwidth=0, background='yellow', foreground='blue', command=plekken)
+    button1.place(x=40, y=50)
+    button2 = Button(master=root, text='Menu', font=('Helvetica', 16, 'bold'), borderwidth=0, background='yellow', foreground='blue', command=close)
+    button2.place(x=40, y=300)
+
+    root.mainloop()
