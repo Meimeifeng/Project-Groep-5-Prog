@@ -7,6 +7,14 @@ import random
 from collections import defaultdict
 import os
 #3
+
+from tkinter import *
+import sys
+root = Tk()
+
+def close():
+    sys.exit()
+
 columns = defaultdict(list)
 text = open('fietsen.csv')
 tekst = csv.reader(text, delimiter=';')
@@ -38,6 +46,7 @@ def www():
 def Registreren():
     text = open('fietsen.csv')
     tekst = csv.reader(text,delimiter=';')
+
     for regel in tekst:
         for (a, b) in enumerate(regel):
             columns[a].append(b)
@@ -47,11 +56,34 @@ def Registreren():
             if str(x) not in plekkenbezet:
                 openkluis = x
                 ww = www()
+                message1 = Label(master=root,
+                    text='Registreren \n\n\nDe plek nummer van uw fiets is: {}\n Uw ophaal code is: {}'.format(openkluis,ww),
+                    background='yellow',
+                    foreground='blue',
+                    font=('Helvetica', 20, 'bold'),
+                    anchor=N,
+                    width=35,
+                    height=11,)
+                message1.pack()
+                button1 = Button(master=root, text='Menu', font=('Helvetica', 20, 'bold'), borderwidth=0, background='yellow', foreground='blue', command=close)
+                button1.place(x=40, y=300)
+
                 text1 = open('fietsen.csv', 'a', newline='')
                 tekst1 = csv.writer(text1, delimiter=';')
                 tekst1.writerow((openkluis, ww))
-                print('jouw plek is nummer '+ str(openkluis) + ' en de code voor het ophalen is: ' + str(ww))
                 break
     else:
-        print('er zijn geen plekken meer beschikbaar')
+        message2 = Label(master=root,
+                    text='Registreren \n\n\n Er zijn geen plekken meer beschikbaar',
+                    background='yellow',
+                    foreground='blue',
+                    font=('Helvetica', 20, 'bold'),
+                    anchor=N,
+                    width=35,
+                    height=11,)
+        message2.pack()
+        button2 = Button(master=root, text='Menu', font=('Helvetica', 20, 'bold'), borderwidth=0, background='yellow', foreground='blue', command=close)
+        button2.place(x=40, y=300)
+
 Registreren()
+root.mainloop()
