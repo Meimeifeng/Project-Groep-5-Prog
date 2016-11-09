@@ -18,7 +18,7 @@ def info():
     os.system('Info.py')
 
 def plekken():
-    os.system('Plekken.py')
+    os.system('Beschikbare plekken.py')
 
 def close():
     sys.exit()
