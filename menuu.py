@@ -42,7 +42,7 @@ while True:
     button2.place(x=40, y=95)
     button3 = Button(master=root, text='Ophalen', font=('Helvetica', 16, 'bold'), borderwidth=0, background='yellow', foreground='blue', command=ophalen)
     button3.place(x=40, y=140)
-    button4 = Button(master=root, text='Informatie Opvragen', font=('Helvetica', 16, 'bold'), borderwidth=0, background='yellow', foreground='blue', command=info)
+    button4 = Button(master=root, text='Informatie opvragen', font=('Helvetica', 16, 'bold'), borderwidth=0, background='yellow', foreground='blue', command=info)
     button4.place(x=40, y=185)
     button5 = Button(master=root, text='Plekken', font=('Helvetica', 16, 'bold'), borderwidth=0, background='yellow', foreground='blue', command=plekken)
     button5.place(x=40, y=230)
