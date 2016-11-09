@@ -4,6 +4,7 @@ import sys
 
 root = Tk()
 
+
 def registreren():
     os.system('Registreren.py')
 
@@ -29,22 +30,23 @@ while True:
             text='Welkom bij de NS fietsenstalling',
             background='yellow',
             foreground='blue',
-            font=('Helvetica', 16, 'bold'),
+            font=('Helvetica', 20, 'bold'),
             anchor=N,
             width=30,
-            height=15,)
+            height=11,)
     label.pack()
-    button1 = Button(master=root, text='Nieuwe fiets registeren', font=('Helvetica', 11, 'bold'), background='yellow', foreground='blue', command=registreren)
+
+    button1 = Button(master=root, text='Nieuwe fiets registeren', font=('Helvetica', 16, 'bold'), borderwidth=0,  background='yellow', foreground='blue', command=registreren)
     button1.place(x=40, y=50)
-    button2 = Button(master=root, text='Stallen', font=('Helvetica', 11, 'bold'), background='yellow', foreground='blue', command=stallen)
+    button2 = Button(master=root, text='Stallen', font=('Helvetica', 16, 'bold'), borderwidth=0, background='yellow', foreground='blue', command=stallen)
     button2.place(x=40, y=95)
-    button3 = Button(master=root, text='Ophalen', font=('Helvetica', 11, 'bold'), background='yellow', foreground='blue', command=ophalen)
+    button3 = Button(master=root, text='Ophalen', font=('Helvetica', 16, 'bold'), borderwidth=0, background='yellow', foreground='blue', command=ophalen)
     button3.place(x=40, y=140)
-    button4 = Button(master=root, text='Informatie Opvragen', font=('Helvetica', 11, 'bold'), background='yellow', foreground='blue', command=info)
+    button4 = Button(master=root, text='Informatie Opvragen', font=('Helvetica', 16, 'bold'), borderwidth=0, background='yellow', foreground='blue', command=info)
     button4.place(x=40, y=185)
-    button5 = Button(master=root, text='Plekken', font=('Helvetica', 11, 'bold'), background='yellow', foreground='blue', command=plekken)
+    button5 = Button(master=root, text='Plekken', font=('Helvetica', 16, 'bold'), borderwidth=0, background='yellow', foreground='blue', command=plekken)
     button5.place(x=40, y=230)
-    button6 = Button(master=root, text='Sluiten', font=('Helvetica', 11, 'bold'), background='yellow', foreground='blue', command=close)
+    button6 = Button(master=root, text='Sluiten', font=('Helvetica', 16, 'bold'), borderwidth=0, background='yellow', foreground='blue', command=close)
     button6.place(x=40, y=300)
 
     root.mainloop()
