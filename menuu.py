@@ -32,7 +32,7 @@ while True:
             foreground='blue',
             font=('Helvetica', 20, 'bold'),
             anchor=N,
-            width=30,
+            width=35,
             height=11,)
     label.pack()
 
