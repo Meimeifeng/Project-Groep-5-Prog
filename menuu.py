@@ -18,7 +18,7 @@ def info():
     os.system('Info.py')
 
 def plekken():
-    os.system('Beschikbare plekken.py')
+    os.system('Plekken.py')
 
 def close():
     sys.exit()
@@ -44,7 +44,7 @@ while True:
     button3.place(x=40, y=140)
     button4 = Button(master=root, text='Informatie opvragen', font=('Helvetica', 16, 'bold'), borderwidth=0, background='yellow', foreground='blue', command=info)
     button4.place(x=40, y=185)
-    button5 = Button(master=root, text='Plekken', font=('Helvetica', 16, 'bold'), borderwidth=0, background='yellow', foreground='blue', command=plekken)
+    button5 = Button(master=root, text='Beschikbare plekken', font=('Helvetica', 16, 'bold'), borderwidth=0, background='yellow', foreground='blue', command=plekken)
     button5.place(x=40, y=230)
     button6 = Button(master=root, text='Sluiten', font=('Helvetica', 16, 'bold'), borderwidth=0, background='yellow', foreground='blue', command=close)
     button6.place(x=40, y=300)
