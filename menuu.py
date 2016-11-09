@@ -1,22 +1,50 @@
 import os
+from tkinter import *
+import sys
+
+root = Tk()
+
+def registreren():
+    os.system('Registreren.py')
+
+def stallen():
+    os.system('Stallen.py')
+
+def ophalen():
+    os.system('Ophalen.py')
+
+def info():
+    os.system('Info.py')
+
+def plekken():
+    os.system('Plekken.py')
+
+def close():
+    sys.exit()
+
+
+
 while True:
-    print('\n1: Je fiets voor de eerste keer registreren\n2: Je fiets stallen\n3: Je fiets ophalen\n4: Informatie van je fiets ophalen\n5: Antal vrije plaatsen\n6: Ik wil stoppen')
-    try:
-        nummer = int(input('geef het nummer van uw keuze '))
-    except:
-        print('kies uit 1 t/m 5')
-        continue
-    if nummer == 1:
-        os.system('Registreren.py')
-    elif nummer == 2:
-        os.system('Stallen.py')
-    elif nummer == 3:
-        os.system('Ophalen.py')
-    elif nummer == 4:
-        os.system('Info.py')
-    elif nummer == 5:
-        os.system('Plekken.py')
-    elif nummer == 6:
-        break
-    else:
-        print('kies uit 1 t/m 6')
+    label = Label(master=root,
+            text='Welkom bij de NS fietsenstalling',
+            background='yellow',
+            foreground='blue',
+            font=('Helvetica', 16, 'bold'),
+            anchor=N,
+            width=30,
+            height=15,)
+    label.pack()
+    button1 = Button(master=root, text='Nieuwe fiets registeren', font=('Helvetica', 11, 'bold'), background='yellow', foreground='blue', command=registreren)
+    button1.place(x=40, y=50)
+    button2 = Button(master=root, text='Stallen', font=('Helvetica', 11, 'bold'), background='yellow', foreground='blue', command=stallen)
+    button2.place(x=40, y=95)
+    button3 = Button(master=root, text='Ophalen', font=('Helvetica', 11, 'bold'), background='yellow', foreground='blue', command=ophalen)
+    button3.place(x=40, y=140)
+    button4 = Button(master=root, text='Informatie Opvragen', font=('Helvetica', 11, 'bold'), background='yellow', foreground='blue', command=info)
+    button4.place(x=40, y=185)
+    button5 = Button(master=root, text='Plekken', font=('Helvetica', 11, 'bold'), background='yellow', foreground='blue', command=plekken)
+    button5.place(x=40, y=230)
+    button6 = Button(master=root, text='Sluiten', font=('Helvetica', 11, 'bold'), background='yellow', foreground='blue', command=close)
+    button6.place(x=40, y=300)
+
+    root.mainloop()
