@@ -58,7 +58,7 @@ def verzenden():
     p.push(application, event, description,) #daadwerkelijke push
 
 
-def check():
+def check():#kijk of de verificatie code goed is en vervolgens de status van de plek weer vrij maken
     verificatie = input("Wat is uw verificatie code? ")
     global verificatiecode
     if verificatie == verificatiecode:
