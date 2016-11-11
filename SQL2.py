@@ -3,7 +3,7 @@ con = sqlite3.connect("fietsgegevens.db")
 cur = con.cursor()
 con.commit()
 
-#cur.execute("""CREATE TABLE Keywords (Pleknr int, fietsnr int, bezet text, datum text)""")
+3cur.execute("""CREATE TABLE Keywords (Pleknr int, fietsnr int, bezet text, datum text)""")
 #cur.execute("""INSERT INTO Keywords VALUES(2, 0, "True","27/11/2018" )""")
 #for x in range(0, 13):
 #    pleknr, fietsnr, bezet, datum = x, 0, "Nee", "-"

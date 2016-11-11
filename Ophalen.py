@@ -1,46 +1,6 @@
 import os, random, string
-#import pynma #importeert de API
+import pynma #importeert de API
 import sqlite3
-
-def plekken():    #aantal vrije plekken
-    con = sqlite3.connect('persoonsgegevens.db')                       #maakt verbinding met sqlite3 en de database
-    cur = con.cursor()
-    cur.execute('SELECT * FROM KEYWORDS')                               #selecteert alle informatie uit de database
-    x = cur.fetchall()                                                  #koppelt de lijst uit de database aan x
-    nietbeschikbaar = len(x)
-    plaatsen = 12                                                       #verander dit nummer om het aantal plekken te veranderen
-    beschikbaar = plaatsen - nietbeschikbaar
-
-    return(int(beschikbaar))
-# vraag om fietsnr
-# stuur code
-# check code
-
-def ophalen():
-    while True:
-        pass
-    #     con = sqlite3.connect("fietsgegevens.db")
-    #      cur = con.cursor()
-    #       cur.execute('SELECT pleknr, bezet, fietsnr FROM KEYWORDS')
-    # x = cur.fetchall()
-    #  Fietsnr = input('wat is jou fietsnummer ')
-    #   wachtwoord = input('wat is jou code ')
-    #    plek = input('op welke plek stond jou fiets ')
-    #     for y in x:
-    #          print(y)
-    #           if y[3] == int(Fietsnr):
-    #                goedefiets = True
-    #   con = sqlite3.connect('persoonsgegevens.db')                       #maakt verbinding met sqlite3 en de database
-    #  cur = con.cursor()
-    # cur.execute('SELECT Fietsnr, code FROM KEYWORDS')                               #selecteert alle informatie uit de database
-    #a = cur.fetchall()
-
-
-
-
-    else:
-        print('Dit was niet de goede combinatie code. Probeer opnieuw')
-
 
 def fietsnr():
     global Fietsnr
@@ -61,6 +21,20 @@ def fietsnr():
         fietsnr()
 
 
+def naam():
+    con = sqlite3.connect("persoonsgegevens.db")
+    cur = con.cursor()
+    cur.execute('SELECT fietsnr, voornaam, tussenvoegsel, achternaam FROM Keywords')
+    x = cur.fetchall()
+    global Fietsnr
+
+    for y in x:
+        if Fietsnr == int(y[0]):
+            global naam
+            naam = (y[1],y[2],y[3])
+            break
+
+
 def gen():#generator
     length = 6
     chars = string.ascii_uppercase + string.digits
@@ -70,21 +44,21 @@ def gen():#generator
 
     print("Uw fietsnummer:", Fietsnr)
     print("Verificatie code verzenden...")
-    print("Uw random code: ", verificatiecode)
-    verzenden()
+
     print("Verificatie code verzonden!")
 
 
 def verzenden():
-    print('')
-    #p = pynma.PyNMA( "e1e405e067b7d0080552d39362dd255a19b6faae969871f4") #is de koppeling aan de mobiel
-    #application=("Mobiel klant") #naam mobiel
-    #event=( "Notificeren ophalen fiets") #welk event
-    #description=("Uw random code: " + global verificatiecode) #tekst
-    #p.push(application, event, description,) #daadwerkelijke push
+    p = pynma.PyNMA("e1e405e067b7d0080552d39362dd255a19b6faae969871f4") #is de koppeling aan de mobiel DE CODE TUSSEN AANHALINGS TEKENS MOET U VERANDEREN ZOALS STAAT IN DE HANDLIJDING!!!
+    global naam
+    application=('naam') #naam mobiel
+    event=( "Notificeren ophalen fiets") #welk event
+    global verificatiecode
+    description=("Uw random code: " + verificatiecode) #tekst
+    p.push(application, event, description,) #daadwerkelijke push
+
 
 def check():
-
     verificatie = input("Wat is uw verificatie code? ")
     global verificatiecode
     if verificatie == verificatiecode:
@@ -101,6 +75,7 @@ def check():
     else:
         print("Foutieve code")
         check()
+
 fietsnr()
 check()
 

@@ -7,14 +7,14 @@ import sqlite3
 
 
 def vragen():
-    con = sqlite3.connect('persoonsgegevens1.db')                       #maakt verbinding met sqlite3 en de database
+    con = sqlite3.connect('persoonsgegevens.db')                       #maakt verbinding met sqlite3 en de database
     cur = con.cursor()
     cur.execute('SELECT * FROM KEYWORDS')                               #selecteert alle informatie uit de database
     x = cur.fetchall()                                                  #koppelt de lijst uit de database aan x
     fietsnr = len(x)+1                                                  #geeft fietsnr de waarde hoelang x is plus 1
     print('om uw fiets te registreren moet u een aantal vragen beandwoorden.\n')
     voornaam = str(input('wat is uw voornaam? '))
-    tussenvoegsel = str(input('wat is uw tussenvoegsel?(heeft u die niet druk op enter) '))
+    tussenvoegsel = str(input('wat is uw tussenvoegsel?(heeft u die niet voer een streep in) '))
     achternaam = str(input('wat is uw achternaam? '))
     geboortedatum = str(input('wat is uw geboorte datum? bijvoorbeeld 07-03-1987 '))
     adres = str(input('wat is uw adres en huisnummer? '))
