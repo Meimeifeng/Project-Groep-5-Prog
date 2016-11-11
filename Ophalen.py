@@ -50,6 +50,8 @@ def fietsnr():
     cur = con.cursor()
     plek = cur.execute('SELECT Fietsnr, Pleknr FROM Keywords')
     for a in plek:
+        global pleknr
+        pleknr = a[0]
         fietsnr = a[1]
         if fietsnr == Fietsnr:
             gen()
@@ -83,16 +85,16 @@ def verzenden():
 
 def check():
 
-    verificatie = input("Wat is uw verificatie code? ").title()
-
+    verificatie = input("Wat is uw verificatie code? ")
+    global verificatiecode
     if verificatie == verificatiecode:
         print("Uw fiets is klaar om opgehaald te worden!")
-        print('ok')
         Bezet = 'Nee'
         Datum = '-'
+        Fietsnr = 0
         con = sqlite3.connect("fietsgegevens.db")
         cur = con.cursor()
-        cur.execute("""UPDATE Keywords SET  Fietsnr = ?, Bezet = ?, Datum = ? WHERE Pleknr = ?""", (Fietsnr, Bezet, Datum, Pleknr))
+        cur.execute("""UPDATE Keywords SET  Fietsnr = ?, Bezet = ?, Datum = ? WHERE Pleknr = ?""", (Fietsnr, Bezet, Datum, pleknr))
         con.commit()
         con.close()
         quit
@@ -102,6 +104,5 @@ def check():
 fietsnr()
 check()
 
-print("end of code")
 
 

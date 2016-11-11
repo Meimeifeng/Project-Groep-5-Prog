@@ -1,5 +1,5 @@
 import sqlite3
-print('1: Informatie over de fietsen in de stalling\n2: De persoonsgegevens van de mensen van wie hun fiets in de stalling staat')
+print('1: Informatie over de fietsen in de stalling\n2: uw persoonsgegevens opvragen en waar uw fiets in de stalling staat')
 
 
 
@@ -23,3 +23,8 @@ if nummer == 1:
     print('{0:6} {1:6}  {2:3}  {3:6}'.format(a, b, c, d))
     for x in cur:
         print('{0:3} {1:6}          {2:6} {3:6}'.format(x[0], x[1], x[2], x[3]))
+elif nummer == 2:
+    fietsnr = input('wat is uw fietsnummer')
+    cur.execute('')
+    for x in cur
+    print()

@@ -14,13 +14,13 @@ def vragen():
     fietsnr = len(x)+1                                                  #geeft fietsnr de waarde hoelang x is plus 1
     print('om uw fiets te registreren moet u een aantal vragen beandwoorden.\n')
     voornaam = str(input('wat is uw voornaam? '))
-    tussenvoegsel = str(input('wat is uw tussenvoegsel? '))
+    tussenvoegsel = str(input('wat is uw tussenvoegsel?(heeft u die niet druk op enter) '))
     achternaam = str(input('wat is uw achternaam? '))
-    geboortedatum = str(input('wat is uw geboorte datum? '))
-    adres = str(input('wat is uw adres? '))
+    geboortedatum = str(input('wat is uw geboorte datum? bijvoorbeeld 07-03-1987 '))
+    adres = str(input('wat is uw adres en huisnummer? '))
     code = 'NULL'
 
-    print('uw naam is:', voornaam, tussenvoegsel, achternaam, ', u bent geboren op', geboortedatum, ', uw adres is', adres, 'en de code om uw fiets op te halen is:', code, 'uw fietsnummer is',fietsnr)
+    print('uw naam is:', voornaam, tussenvoegsel, achternaam, '\nu bent geboren op', geboortedatum, '"\nuw adres is', adres)
     bevesteging = input('kloppen deze gegevens? vul in: ja/nee ')       #vraagt de persoon of zijn/haar gegevens kloppen.
 
     if bevesteging  == 'ja':                                            #geeft de gegevens door aan de database
@@ -28,6 +28,7 @@ def vragen():
         con.commit()
         con.close()
         print('u heeft u sucessvol geregistreerd.')
+        print('uw fietsnummer is',fietsnr, '\nondhoud dit nummer goed. deze heeft u nodig als u uw fiets wilt stallen of ophalen')
     else:
         print('u heeft aangegeven dat uw gegevens niet kloppen. u kunt deze nu opieuw invoeren.')
         vragen()
