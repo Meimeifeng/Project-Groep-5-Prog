@@ -1,22 +1,12 @@
 import sqlite3
-print('1: informatie over de fietsen in de stalling')
+print('1: Informatie over de fietsen in de stalling\n2: De persoonsgegevens van de mensen van wie hun fiets in de stalling staat')
 
 
-def plekken():    #aantal vrije kluizen
-    con = sqlite3.connect('persoonsgegevens.db')                       #maakt verbinding met sqlite3 en de database
-    cur = con.cursor()
-    cur.execute('SELECT * FROM KEYWORDS')                               #selecteert alle informatie uit de database
-    x = cur.fetchall()                                                  #koppelt de lijst uit de database aan x
-    nietbeschikbaar = len(x)
-    plaatsen = 12                                                       #verander dit nummer om het aantal plekken te veranderen
-    beschikbaar = plaatsen - nietbeschikbaar
-
-    return(int(beschikbaar))
 
 try:
     nummer = int(input('geef het nummer van uw keuze '))
 except:
-    print('kies uit 1 t/m 5')
+    print('kies uit 1 of 2')
 
 if nummer == 1:
     if plekken()>1:
