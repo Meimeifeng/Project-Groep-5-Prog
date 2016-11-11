@@ -1,52 +1,37 @@
 import os
-from tkinter import *
-import sys
+import sqlite3
 
-root = Tk()
-
-
-def registreren():
-    os.system('Registreren.py')
-
-def stallen():
-    os.system('Stallen.py')
-
-def ophalen():
-    os.system('Ophalen.py')
-
-def info():
-    os.system('Info.py')
-
-def plekken():
-    os.system('Plekken.py')
-
-def close():
-    sys.exit()
+def plekken():    #aantal vrije kluizen
+    con = sqlite3.connect('persoonsgegevens.db')                       #maakt verbinding met sqlite3 en de database
+    cur = con.cursor()
+    cur.execute('SELECT * FROM KEYWORDS')                               #selecteert alle informatie uit de database
+    x = cur.fetchall()                                                  #koppelt de lijst uit de database aan x
+    nietbeschikbaar = len(x)
+    plaatsen = 12                                                       #verander dit nummer om het aantal plekken te veranderen
+    beschikbaar = plaatsen - nietbeschikbaar
+    return(beschikbaar)
 
 
 
 while True:
-    label = Label(master=root,
-            text='Welkom bij de NS fietsenstalling',
-            background='yellow',
-            foreground='blue',
-            font=('Helvetica', 20, 'bold'),
-            anchor=N,
-            width=35,
-            height=11,)
-    label.pack()
 
-    button1 = Button(master=root, text='Nieuwe fiets registeren', font=('Helvetica', 16, 'bold'), borderwidth=0,  background='yellow', foreground='blue', command=registreren)
-    button1.place(x=40, y=50)
-    button2 = Button(master=root, text='Stallen', font=('Helvetica', 16, 'bold'), borderwidth=0, background='yellow', foreground='blue', command=stallen)
-    button2.place(x=40, y=95)
-    button3 = Button(master=root, text='Fiets ophalen', font=('Helvetica', 16, 'bold'), borderwidth=0, background='yellow', foreground='blue', command=ophalen)
-    button3.place(x=40, y=140)
-    button4 = Button(master=root, text='Informatie opvragen', font=('Helvetica', 16, 'bold'), borderwidth=0, background='yellow', foreground='blue', command=info)
-    button4.place(x=40, y=185)
-    button5 = Button(master=root, text='Beschikbare plekken', font=('Helvetica', 16, 'bold'), borderwidth=0, background='yellow', foreground='blue', command=plekken)
-    button5.place(x=40, y=230)
-    button6 = Button(master=root, text='Sluiten', font=('Helvetica', 16, 'bold'), borderwidth=0, background='yellow', foreground='blue', command=close)
-    button6.place(x=40, y=300)
 
-    root.mainloop()
+
+    print('\n1: Je fiets voor de eerste keer registreren\n2: Je fiets stallen\n3: Je fiets ophalen\n4: Informatie van je fiets of van de stalling\n5: Ik wil stoppen')
+    try:
+        nummer = int(input('geef het nummer van uw keuze '))
+    except:
+        print('kies uit 1 t/m 5')
+        continue
+    if nummer == 1:
+        os.system('Registreren.py')
+    elif nummer == 2:
+        os.system('Stallen.py')
+    elif nummer == 3:
+        os.system('Ophalen.py')
+    elif nummer == 4:
+        os.system('Info.py')
+    elif nummer == 5:
+        break
+    else:
+        print('kies uit 1 t/m 6')

@@ -1,20 +1,41 @@
-from tkinter import *
-import sys
-root = Tk()
+import sqlite3
+import datetime
 
-def close():
-    sys.exit()
+def plekken():    #aantal vrije kluizen
+    con = sqlite3.connect('persoonsgegevens.db')                       #maakt verbinding met sqlite3 en de database
+    cur = con.cursor()
+    cur.execute('SELECT * FROM KEYWORDS')                               #selecteert alle informatie uit de database
+    x = cur.fetchall()                                                  #koppelt de lijst uit de database aan x
+    nietbeschikbaar = len(x)
+    plaatsen = 12                                                       #verander dit nummer om het aantal plekken te veranderen
+    beschikbaar = plaatsen - nietbeschikbaar
 
-message = Label(master=root,
-                    text='Stallen \n\n\nDeze optie werkt nog niet',
-                    background='yellow',
-                    foreground='blue',
-                    font=('Helvetica', 20, 'bold'),
-                    anchor=N,
-                    width=35,
-                    height=11,)
-message.pack()
-button1 = Button(master=root, text='Menu', font=('Helvetica', 20, 'bold'), borderwidth=0, background='yellow', foreground='blue', command=close)
-button1.place(x=40, y=300)
+    return(int(beschikbaar))
 
-root.mainloop()
+def Registreren():
+    if plekken() > 0:
+        Fietsnr = input('wat is jou fietsnummer ')
+        con = sqlite3.connect("fietsgegevens.db")
+        cur = con.cursor()
+
+        cur.execute('SELECT pleknr, bezet FROM KEYWORDS')
+
+        x = cur.fetchall()
+        for y in x:
+            Plek = y[0]
+            Bezet = y[1]
+            if Bezet == 'Nee':
+                print('jouw plek is nummer ', str(Plek))
+                Bezet = 'Ja'
+                Datum = datetime.datetime.today().strftime("%a %d %b %Y, %H:%M:%S")
+                con = sqlite3.connect("fietsgegevens.db")
+                cur = con.cursor()
+                cur.execute("""UPDATE Keywords SET  Fietsnr = ?, Bezet = ?, Datum = ? WHERE Pleknr = ?""", (Fietsnr, Bezet, Datum, Plek))
+                con.commit()
+                con.close()
+                break
+    else:
+        print('er zijn geen plekken meer beschikbaar')
+
+
+Registreren()

@@ -1,43 +1,17 @@
-import csv
-from tkinter import *
-import sys
+import sqlite3
+def plekken():    #aantal vrije kluizen
+    con = sqlite3.connect('persoonsgegevens.db')                       #maakt verbinding met sqlite3 en de database
+    cur = con.cursor()
+    cur.execute('SELECT * FROM KEYWORDS')                               #selecteert alle informatie uit de database
+    x = cur.fetchall()                                                  #koppelt de lijst uit de database aan x
+    nietbeschikbaar = len(x)
+    plaatsen = 12                                                       #verander dit nummer om het aantal plekken te veranderen
+    beschikbaar = plaatsen - nietbeschikbaar
 
-root = Tk()
-
-def close():
-    sys.exit()
-
-nietbeschikbaar = 0
-file = open('fietsen.csv', 'r', newline='')
-tekst = csv.reader(file)
-for regel in tekst:
-    nietbeschikbaar = nietbeschikbaar + 1
-beschikbaar = 12 - nietbeschikbaar
-
-if beschikbaar > 0:
-    message1 = Label(master=root,
-                    text='Beschikbare plekken \n\n\nEr zijn nog {} plekken beschikbaar'.format(beschikbaar),
-                    background='yellow',
-                    foreground='blue',
-                    font=('Helvetica', 20, 'bold'),
-                    anchor=N,
-                    width=35,
-                    height=11,)
-    message1.pack()
-    button1 = Button(master=root, text='Menu', font=('Helvetica', 20, 'bold'), borderwidth=0, background='yellow', foreground='blue', command=close)
-    button1.place(x=40, y=300)
-else:
-    message2 = Label(master=root,
-                    text='Beschikbare plekken \n\n\nEr zijn momenteel geen plekken meer vrij',
-                    background='yellow',
-                    foreground='blue',
-                    font=('Helvetica', 20, 'bold'),
-                    anchor=N,
-                    width=35,
-                    height=11,)
-    message2.pack()
-    button2 = Button(master=root, text='Menu', font=('Helvetica', 20, 'bold'), borderwidth=0, background='yellow', foreground='blue', command=close)
-    button2.place(x=40, y=300)
-
-
-root.mainloop()
+    return(int(beschikbaar))
+if plekken()>1:
+    print('er zijn nog',plekken(),'plaatsen beschikbaar')
+elif plekken()== 0:
+    print('er zijn geen plaatsen beschikbaar')
+elif plekken() == 1:
+    print('er is nog 1 plaats beschikbaar')

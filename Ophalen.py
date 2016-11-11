@@ -1,95 +1,107 @@
-import csv
-import random
-from collections import defaultdict
-from tkinter import *
-import sys
-root = Tk()
+import os, random, string
+#import pynma #importeert de API
+import sqlite3
 
-def close():
-    sys.exit()
+def plekken():    #aantal vrije plekken
+    con = sqlite3.connect('persoonsgegevens.db')                       #maakt verbinding met sqlite3 en de database
+    cur = con.cursor()
+    cur.execute('SELECT * FROM KEYWORDS')                               #selecteert alle informatie uit de database
+    x = cur.fetchall()                                                  #koppelt de lijst uit de database aan x
+    nietbeschikbaar = len(x)
+    plaatsen = 12                                                       #verander dit nummer om het aantal plekken te veranderen
+    beschikbaar = plaatsen - nietbeschikbaar
 
-columns = defaultdict(list)
-text = open('fietsen.csv')
-tekst = csv.reader(text, delimiter=';')
-for regel in tekst:
-    for (a, b) in enumerate(regel):
-        columns[a].append(b)
-kluizengebruikt = columns[0]
-for y in kluizengebruikt:
-    kluizengebruikt[kluizengebruikt.index(y)] = int(y)
+    return(int(beschikbaar))
+# vraag om fietsnr
+# stuur code
+# check code
 
-root.configure(background='yellow')
+def ophalen():
+    while True:
+        pass
+    #     con = sqlite3.connect("fietsgegevens.db")
+    #      cur = con.cursor()
+    #       cur.execute('SELECT pleknr, bezet, fietsnr FROM KEYWORDS')
+    # x = cur.fetchall()
+    #  Fietsnr = input('wat is jou fietsnummer ')
+    #   wachtwoord = input('wat is jou code ')
+    #    plek = input('op welke plek stond jou fiets ')
+    #     for y in x:
+    #          print(y)
+    #           if y[3] == int(Fietsnr):
+    #                goedefiets = True
+    #   con = sqlite3.connect('persoonsgegevens.db')                       #maakt verbinding met sqlite3 en de database
+    #  cur = con.cursor()
+    # cur.execute('SELECT Fietsnr, code FROM KEYWORDS')                               #selecteert alle informatie uit de database
+    #a = cur.fetchall()
 
 
-button1 = Button(master=root, text='Menu', font=('Helvetica', 20, 'bold'), borderwidth=0, background='yellow', foreground='blue', command=close)
-button1.pack(anchor=NW)
 
-message = Label(master=root,
-                    text='Fiets ophalen',
-                    background='yellow',
-                    foreground='blue',
-                    font=('Helvetica', 20, 'bold'),
-                    anchor=N,
-                    width=35,)
-message.pack()
-fietscd1 = Label(master=root,
-                    text='\nVul uw fiets code in: ',
-                    background='yellow',
-                    foreground='blue',
-                    font=('Helvetica', 16, 'bold'),
-                    width=46,)
-fietscd1.pack()
-fietscd2 = Entry(root, bd=5, background='blue', foreground='yellow',)
-fietscd2.pack()
-fietsnum1 = Label(master=root,
-                    text='\nVul uw fiets plaats nummer in: ',
-                    background='yellow',
-                    foreground='blue',
-                    font=('Helvetica', 16, 'bold'),
-                    width=46,)
-fietsnum1.pack()
-fietsnum2 = Entry(root, bd=5, background='blue', foreground='yellow',)
-fietsnum2.pack()
 
-def Ophalen():    #kluis openen
-    text = open('fietsen.csv')
-    tekst = csv.reader(text, delimiter=';')
-    for regel in tekst:
-        for (a, b) in enumerate(regel):
-            columns[a].append(b)
-    codes = columns[1]
-    plek = columns[0]
-    x = True
-    fietsnr = fietsnum2.get()
-    wachtwoord = fietscd2.get()
-    while x == True:
-        if wachtwoord in codes:
-            for i in codes:
-                if i == wachtwoord:
-                    fiets1 = Label(master=root,
-                        text='\nUw kluisnummer {} word geopend'.format(plek[codes.index(i)]),
-                        background='yellow',
-                        foreground='blue',
-                        font=('Helvetica', 16, 'bold'),
-                        width=46,)
-                    fiets1.pack()
-                    x = False
-                    break
-        else:
-            fiets2 = Label(master=root,
-                        text='\nOnbekende combinatie, probeer het a.u.b. opnieuw',
-                        background='yellow',
-                        foreground='blue',
-                        font=('Helvetica', 16, 'bold'),
-                        width=46,)
-            fiets2.pack()
+    else:
+        print('Dit was niet de goede combinatie code. Probeer opnieuw')
+
+
+def fietsnr():
+    global Fietsnr
+    Fietsnr = int(input('wat is je fietsnr '))
+
+    con = sqlite3.connect("fietsgegevens.db")
+    cur = con.cursor()
+    plek = cur.execute('SELECT Fietsnr, Pleknr FROM Keywords')
+    for a in plek:
+        fietsnr = a[1]
+        if fietsnr == Fietsnr:
+            gen()
             break
+    else:
+        print('dit fietsnr komt niet voor in uw code ')
+        fietsnr()
 
 
-submit = Button(root, text ="\nControleren", font=('Helvetica', 15, 'bold'), borderwidth=0, background='yellow', foreground='blue', command = Ophalen)
-submit.pack()
+def gen():#generator
+    length = 6
+    chars = string.ascii_uppercase + string.digits
+    random.seed = (os.urandom(1024))
+    global verificatiecode
+    verificatiecode = (''.join(random.choice(chars) for i in range(length)))
+
+    print("Uw fietsnummer:", Fietsnr)
+    print("Verificatie code verzenden...")
+    print("Uw random code: ", verificatiecode)
+    verzenden()
+    print("Verificatie code verzonden!")
 
 
-root.mainloop()
+def verzenden():
+    print('')
+    #p = pynma.PyNMA( "e1e405e067b7d0080552d39362dd255a19b6faae969871f4") #is de koppeling aan de mobiel
+    #application=("Mobiel klant") #naam mobiel
+    #event=( "Notificeren ophalen fiets") #welk event
+    #description=("Uw random code: " + global verificatiecode) #tekst
+    #p.push(application, event, description,) #daadwerkelijke push
 
-Ophalen()
+def check():
+
+    verificatie = input("Wat is uw verificatie code? ").title()
+
+    if verificatie == verificatiecode:
+        print("Uw fiets is klaar om opgehaald te worden!")
+        print('ok')
+        Bezet = 'Nee'
+        Datum = '-'
+        con = sqlite3.connect("fietsgegevens.db")
+        cur = con.cursor()
+        cur.execute("""UPDATE Keywords SET  Fietsnr = ?, Bezet = ?, Datum = ? WHERE Pleknr = ?""", (Fietsnr, Bezet, Datum, Pleknr))
+        con.commit()
+        con.close()
+        quit
+    else:
+        print("Foutieve code")
+        check()
+fietsnr()
+check()
+
+print("end of code")
+
+

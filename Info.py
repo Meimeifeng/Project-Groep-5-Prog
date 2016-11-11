@@ -1,29 +1,25 @@
-import os
-from tkinter import *
-import sys
+import sqlite3
+print('1: Informatie over de fietsen in de stalling\n2: De persoonsgegevens van de mensen van wie hun fiets in de stalling staat')
 
-root = Tk()
 
-def plekken():
-    os.system('plekken.py')
 
-def close():
-    sys.exit()
+try:
+    nummer = int(input('geef het nummer van uw keuze '))
+except:
+    print('kies uit 1 of 2')
 
-while True:
-    label = Label(master=root,
-            text='Informatie opvragen',
-            background='yellow',
-            foreground='blue',
-            font=('Helvetica', 20, 'bold'),
-            anchor=N,
-            width=35,
-            height=11,)
-    label.pack()
+if nummer == 1:
+    if plekken()>1:
+        print('er zijn nog',plekken(),'plaatsen beschikbaar')
+    elif plekken()== 0:
+        print('er zijn geen plaatsen beschikbaar')
+    elif plekken() == 1:
+        print('er is nog 1 plaats beschikbaar')
 
-    button1 = Button(master=root, text='Beschikbare plekken', font=('Helvetica', 16, 'bold'), borderwidth=0, background='yellow', foreground='blue', command=plekken)
-    button1.place(x=40, y=50)
-    button2 = Button(master=root, text='Menu', font=('Helvetica', 16, 'bold'), borderwidth=0, background='yellow', foreground='blue', command=close)
-    button2.place(x=40, y=300)
-
-    root.mainloop()
+    con = sqlite3.connect("fietsgegevens.db")
+    cur = con.cursor()
+    cur.execute('SELECT * FROM Keywords')
+    a, b, c, d = 'Plaats', 'Fietsnummer', 'Bezet', 'De fiets staat er sinds'
+    print('{0:6} {1:6}  {2:3}  {3:6}'.format(a, b, c, d))
+    for x in cur:
+        print('{0:3} {1:6}          {2:6} {3:6}'.format(x[0], x[1], x[2], x[3]))
